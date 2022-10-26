@@ -36,7 +36,7 @@ class MoviesView(Resource):
 			return e
 
 
-@movie_ns.route('/<int:bid>')
+@movie_ns.route('/<int:pk>')
 class MovieView(Resource):
 	# @auth_required
 	def get(self, pk: int):

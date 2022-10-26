@@ -1,5 +1,5 @@
 from flask_restx import Resource, Namespace
-from flask import request
+from flask import request, abort
 
 from dao.model.genre import GenreSchema
 from implemented import genre_service
@@ -10,7 +10,7 @@ genre_ns = Namespace('genres')
 
 @genre_ns.route('/')
 class GenresView(Resource):
-	@auth_required
+	# @auth_required
 	def get(self):
 		rs = genre_service.get_all()
 		res = GenreSchema(many=True).dump(rs)
@@ -23,23 +23,25 @@ class GenresView(Resource):
 		return 'Ok', 201
 
 
-@genre_ns.route('/<int:rid>')
+@genre_ns.route('/<int:pk>')
 class GenreView(Resource):
-	@auth_required
-	def get(self, rid):
-		r = genre_service.get_one(rid)
-		sm_d = GenreSchema().dump(r)
+	# @auth_required
+	def get(self, pk):
+		result = genre_service.get_one(pk)
+		if not result:
+			abort(404)
+		sm_d = GenreSchema().dump(result)
 		return sm_d, 200
 
 	@admin_required
-	def put(self, rid):
+	def put(self, pk: int):
 		data = request.json
 		if "id" not in data:
-			data["id"] = rid
+			data["id"] = pk
 		genre_service.update(data)
 		return "", 204
 
 	@admin_required
-	def delete(self, rid):
-		genre_service.delete(rid)
+	def delete(self, pk: int):
+		genre_service.delete(pk)
 		return '', 204

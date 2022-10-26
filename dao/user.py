@@ -10,7 +10,6 @@ class UserDAO:
 
 	# Create new object in table user
 	def create(self, data):
-
 		user = User(**data)
 		self.session.add(user)
 		self.session.commit()
@@ -22,7 +21,7 @@ class UserDAO:
 
 	# Return user by username
 	def get_by_username(self, username):
-		return self.session.query(User).filter(User.username == username).first()
+		return self.session.query(User).filter(User.name == username).first()
 
 	# Return user by id
 	def get_one(self, pk: int):

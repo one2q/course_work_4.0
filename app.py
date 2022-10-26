@@ -1,5 +1,6 @@
 from flask import Flask
 from flask_restx import Api
+# from flask_migrate import Migrate
 
 from config import Config
 from setup_db import db
@@ -26,11 +27,12 @@ def register_extensions(app: Flask) -> None:
 	api.add_namespace(user_ns)
 	api.add_namespace(auth_ns)
 
-# migrate = Migrate(app, db, render_as_batch=True)
+
 
 
 if __name__ == '__main__':
 	app = create_app(Config())
+	# migrate = Migrate(app, db, render_as_batch=True)
 	# with app.app_context():
 	# 	db.create_all()
 	app.run(host="localhost", port=5000)
