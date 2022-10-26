@@ -26,8 +26,8 @@ class AuthService:
 				raise abort(400)
 
 		data = {
-			"email": user.username,
-			"password": user.password
+			"email": user.email,
+			"password": str(user.password)
 		}
 		# 30 min token
 		min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
@@ -49,5 +49,5 @@ class AuthService:
 	# Generate new access token
 	def refresh_token(self, refresh_token):
 		data = jwt.decode(refresh_token, JWT_SECRET, JWT_ALGORITHM)
-		username = data.get("username")
-		return self.generate_tokens(username, None, is_refresh=True)
+		email = data.get("email")
+		return self.generate_tokens(email, None, is_refresh=True)
