@@ -6,9 +6,9 @@ from implemented import auth_service, user_service
 auth_ns = Namespace('auth')
 
 
-# Register new user
 @auth_ns.route('/register')
 class AuthViews(Resource):
+	# Register new user
 	def post(self):
 		data = request.json
 		email = data.get("email", None)
@@ -22,6 +22,7 @@ class AuthViews(Resource):
 # User authentication
 @auth_ns.route('/login')
 class AuthViews(Resource):
+	# Get tokens
 	def post(self):
 		data = request.json
 
@@ -33,6 +34,7 @@ class AuthViews(Resource):
 		tokens = auth_service.generate_tokens(email, password)
 		return tokens, 201
 
+	# Refresh tokens
 	def put(self):
 		data = request.json
 		token = data.get('refresh_token')

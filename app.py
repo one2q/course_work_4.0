@@ -28,8 +28,6 @@ def register_extensions(app: Flask) -> None:
 	api.add_namespace(auth_ns)
 
 
-
-
 if __name__ == '__main__':
 	app = create_app(Config())
 	# migrate = Migrate(app, db, render_as_batch=True)
