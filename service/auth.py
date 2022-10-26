@@ -12,11 +12,11 @@ class AuthService:
 	def __init__(self, user_service: UserService):
 		self.user_service = user_service
 
-	def generate_tokens(self, username: str, password: str | None, is_refresh: bool = False) -> dict:
+	def generate_tokens(self, email: str, password: str | None, is_refresh: bool = False) -> dict:
 		"""
 		This function is generate access and refresh tokens
 		"""
-		user = self.user_service.get_by_username(username)
+		user = self.user_service.get_by_email(email)
 		# Check if where is a user
 		if user is None:
 			raise abort(404)
@@ -26,8 +26,8 @@ class AuthService:
 				raise abort(400)
 
 		data = {
-			"username": user.username,
-			"role": user.role
+			"email": user.username,
+			"password": user.password
 		}
 		# 30 min token
 		min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)

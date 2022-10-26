@@ -20,8 +20,8 @@ class UserService:
 		data["password"] = self.get_hash(data["password"])
 		return self.dao.create(data)
 
-	def get_by_username(self, username: str):
-		return self.dao.get_by_username(username)
+	def get_by_email(self, email: str):
+		return self.dao.get_by_email(email)
 
 	def get_hash(self, password: str):
 		result = hashlib.pbkdf2_hmac(

@@ -20,8 +20,8 @@ class UserDAO:
 		return self.session.query(User).all()
 
 	# Return user by username
-	def get_by_username(self, username):
-		return self.session.query(User).filter(User.name == username).first()
+	def get_by_email(self, email):
+		return self.session.query(User).filter(User.email == email).first()
 
 	# Return user by id
 	def get_one(self, pk: int):
