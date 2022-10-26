@@ -10,8 +10,10 @@ class MovieService:
 
 	def get_all(self, filters):
 		sort, page = False, False
+		# Check if it needed to sort list
 		if filters.get("status") is not None:
 			sort = True
+		# Check if it needed to paginate
 		if filters.get("page") is not None:
 			page = filters.get("page")
 		movies = self.dao.get_all(sort, page)

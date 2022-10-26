@@ -23,6 +23,9 @@ class UserService:
 	def get_by_email(self, email: str):
 		return self.dao.get_by_email(email)
 
+	def update(self, user_data: dict):
+		return self.dao.update(user_data)
+
 	def get_hash(self, password: str):
 		result = hashlib.pbkdf2_hmac(
 			'sha256',

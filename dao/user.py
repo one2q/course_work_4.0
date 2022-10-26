@@ -33,3 +33,8 @@ class UserDAO:
 		self.session.delete(user)
 		self.session.commit()
 
+	def update(self, user_data: dict):
+		email = user_data.get("email")
+		self.session.query(User).filter(User.email == email).update(user_data)
+		self.session.commit()
+		return self.get_by_email(email)
