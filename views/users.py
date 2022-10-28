@@ -26,12 +26,33 @@ class UsersView(Resource):
 			return user_schema.dump(user_service.get_by_email(email))
 		abort(404)
 
+	# @auth_required
 	def patch(self):
 		data = request.json
 		password = data.get("password")
+		# Check if where any password
 		if password:
 			return "No no no", 403
 
+		# Get email from token
+		user_data = request.headers["Authorization"]
+		token = user_data.split("Bearer ")[-1]
+		decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
+		email = decoded_data.get('email')
+		data["email"] = email
+
+		# Update users data
+		user = user_service.update(data)
+		if not user:
+			return abort(404)
+		return user_schema.dump(user)
+
+	# @auth_required
+	def put(self):
+		data = request.json
+		password = data.get("password")
+
+		# Get email from token
 		user_data = request.headers["Authorization"]
 		token = user_data.split("Bearer ")[-1]
 		decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
@@ -42,13 +63,3 @@ class UsersView(Resource):
 		if not user:
 			return abort(404)
 		return user_schema.dump(user)
-
-	def put(self):
-		pass
-		# user = user_service.get_by_email(email)
-
-
-# @user_ns.route('/<int:pk>')
-# class UserView(Resource):
-# 	def get(self, pk):
-# 		return user_schema.dump(user_service.get_one(pk))
