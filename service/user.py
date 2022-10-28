@@ -39,9 +39,8 @@ class UserService:
 	def compare_passwords(self, password_hash: bytes | str, password: str) -> bool:
 		# Check is password a string and transform it to bytes
 		if isinstance(password_hash, str):
-			password_hash = str(password_hash.split("b'")[-1]).rstrip("'")
 			password_hash = password_hash.encode('utf-8')
-		password_hash = bytes(password_hash)
+
 		decode_password = base64.b64decode(password_hash)
 		new_password = base64.b64decode(self.get_hash(password))
 

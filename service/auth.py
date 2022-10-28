@@ -25,10 +25,10 @@ class AuthService:
 			if not self.user_service.compare_passwords(user.password, password):
 				raise abort(400)
 
-		# Transform password to string, because we can`t encode bytes
+		# Transform password to string, because jwt can`t encode bytes
 		data = {
 			"email": user.email,
-			"password": str(user.password)
+			"password": user.password.decode('utf-8')
 		}
 		# 30 min token
 		min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)

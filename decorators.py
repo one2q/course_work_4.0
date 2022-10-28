@@ -2,7 +2,6 @@ import jwt as jwt
 from flask import request, abort
 
 from constants import JWT_ALGORITHM, JWT_SECRET
-from implemented import user_service
 
 
 def auth_required(func):
@@ -20,8 +19,6 @@ def auth_required(func):
 		except:
 			abort(401)
 	return inner
-
-
 
 # def admin_required(func):
 # 	"""
