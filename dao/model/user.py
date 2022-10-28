@@ -11,6 +11,7 @@ class User(db.Model):
 	name = db.Column(db.String)
 	surname = db.Column(db.String)
 	favorite_genre = db.Column(db.String)
+	# genre_id = db.Column(db.Integer)
 
 
 class UserSchema(Schema):
@@ -20,4 +21,3 @@ class UserSchema(Schema):
 	name = fields.Str()
 	surname = fields.Str()
 	favorite_genre = fields.Str()
-

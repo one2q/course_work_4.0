@@ -6,7 +6,7 @@ from implemented import auth_service, user_service
 auth_ns = Namespace('auth')
 
 
-@auth_ns.route('/register')
+@auth_ns.route('/register/')
 class AuthViews(Resource):
 	# Register new user
 	def post(self):
@@ -20,7 +20,7 @@ class AuthViews(Resource):
 
 
 # User authentication
-@auth_ns.route('/login')
+@auth_ns.route('/login/')
 class AuthViews(Resource):
 	# Get tokens
 	def post(self):

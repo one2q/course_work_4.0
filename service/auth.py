@@ -25,6 +25,7 @@ class AuthService:
 			if not self.user_service.compare_passwords(user.password, password):
 				raise abort(400)
 
+		# Transform password to string, because we can`t encode bytes
 		data = {
 			"email": user.email,
 			"password": str(user.password)

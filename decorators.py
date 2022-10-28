@@ -2,6 +2,7 @@ import jwt as jwt
 from flask import request, abort
 
 from constants import JWT_ALGORITHM, JWT_SECRET
+from implemented import user_service
 
 
 def auth_required(func):
@@ -21,22 +22,23 @@ def auth_required(func):
 	return inner
 
 
-def admin_required(func):
-	"""
-	This decorator check role of user and if it is not admin
-	access is denied
-	"""
-	def inner(*args, **kwargs):
-		if "Authorization" not in request.headers:
-			abort(401)
-		data = request.headers["Authorization"]
-		token = data.split("Bearer ")[-1]
-		try:
-			decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
-			role = decoded_data.get('role')
-		except:
-			abort(401)
-		if role != 'admin':
-			abort(403)
-		return func(*args, **kwargs)
-	return inner
+
+# def admin_required(func):
+# 	"""
+# 	This decorator check role of user and if it is not admin
+# 	access is denied
+# 	"""
+# 	def inner(*args, **kwargs):
+# 		if "Authorization" not in request.headers:
+# 			abort(401)
+# 		data = request.headers["Authorization"]
+# 		token = data.split("Bearer ")[-1]
+# 		try:
+# 			decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
+# 			role = decoded_data.get('role')
+# 		except:
+# 			abort(401)
+# 		if role != 'admin':
+# 			abort(403)
+# 		return func(*args, **kwargs)
+# 	return inner

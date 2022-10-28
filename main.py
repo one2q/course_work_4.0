@@ -15,8 +15,6 @@ def create_app(config_object: Config) -> Flask:
 	app = Flask(__name__)
 	app.config.from_object(config_object)
 	register_extensions(app)
-	# with app.app_context():
-	# 	db.create_all()
 	return app
 
 
@@ -30,7 +28,11 @@ def register_extensions(app: Flask) -> None:
 	api.add_namespace(auth_ns)
 
 
+app = create_app(Config())
+migrate = Migrate(app, db, render_as_batch=True)
+
+with app.app_context():
+	db.create_all()
+
 if __name__ == '__main__':
-	app = create_app(Config())
-	migrate = Migrate(app, db)
 	app.run(port=5000)
