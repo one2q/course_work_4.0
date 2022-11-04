@@ -11,9 +11,9 @@ genre_ns = Namespace('genres')
 class GenresView(Resource):
 	# @auth_required
 	def get(self):
-		rs = genre_service.get_all()
-		res = GenreSchema(many=True).dump(rs)
-		return res, 200
+		genre = genre_service.get_all()
+		result = GenreSchema(many=True).dump(genre)
+		return result, 200
 
 	# @admin_required
 	def post(self):
@@ -26,11 +26,11 @@ class GenresView(Resource):
 class GenreView(Resource):
 	@auth_required
 	def get(self, pk):
-		result = genre_service.get_one(pk)
-		if not result:
+		genre = genre_service.get_one(pk)
+		if not genre:
 			abort(404)
-		sm_d = GenreSchema().dump(result)
-		return sm_d, 200
+		result = GenreSchema().dump(genre)
+		return result, 200
 
 	# @admin_required
 	def put(self, pk: int):

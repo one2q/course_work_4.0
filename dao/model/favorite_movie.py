@@ -3,8 +3,8 @@ from marshmallow import Schema, fields
 from setup_db import db
 
 
-class FavoriteMovie(db.Model):
-	__tablename__ = 'favorite_movie'
+class FavoriteMovies(db.Model):
+	__tablename__ = 'favorite_movies'
 	id = db.Column(db.Integer, primary_key=True)
 	user_id = db.Column(db.Integer, db.ForeignKey("user.id"))
 	movie_id = db.Column(db.Integer, db.ForeignKey("movie.id"))

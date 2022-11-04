@@ -9,8 +9,8 @@ from service.user import UserService
 
 
 class AuthService:
-	def __init__(self, user_service: UserService):
-		self.user_service = user_service
+	def __init__(self, service: UserService):
+		self.user_service = service
 
 	def generate_tokens(self, email: str, password: str | None, is_refresh: bool = False) -> dict:
 		"""

@@ -12,9 +12,9 @@ director_ns = Namespace('directors')
 class DirectorsView(Resource):
 	# @auth_required
 	def get(self):
-		rs = director_service.get_all()
-		res = DirectorSchema(many=True).dump(rs)
-		return res, 200
+		director = director_service.get_all()
+		result = DirectorSchema(many=True).dump(director)
+		return result, 200
 
 	# @admin_required
 	def post(self):
@@ -27,9 +27,9 @@ class DirectorsView(Resource):
 class DirectorView(Resource):
 	@auth_required
 	def get(self, pk: int):
-		r = director_service.get_one(pk)
-		sm_d = DirectorSchema().dump(r)
-		return sm_d, 200
+		director = director_service.get_one(pk)
+		result = DirectorSchema().dump(director)
+		return result, 200
 
 	# @admin_required
 	def put(self, pk: int):

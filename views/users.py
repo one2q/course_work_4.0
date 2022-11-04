@@ -15,7 +15,7 @@ users_schema = UserSchema(many=True)
 @user_ns.route('/')
 class UsersView(Resource):
 	# Get user by email
-	# @auth_required
+	@auth_required
 	def get(self):
 		user_data = request.headers["Authorization"]
 		token = user_data.split("Bearer ")[-1]
@@ -26,7 +26,7 @@ class UsersView(Resource):
 			return user_schema.dump(user_service.get_by_email(email))
 		abort(404)
 
-	# @auth_required
+	@auth_required
 	def patch(self):
 		data = request.json
 		password = data.get("password")
@@ -47,10 +47,12 @@ class UsersView(Resource):
 			return abort(404)
 		return user_schema.dump(user)
 
-	# @auth_required
+
+@user_ns.route('/password/')
+class UsersView(Resource):
+	@auth_required
 	def put(self):
 		data = request.json
-		password = data.get("password")
 
 		# Get email from token
 		user_data = request.headers["Authorization"]

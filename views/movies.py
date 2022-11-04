@@ -13,7 +13,7 @@ movies_schema = MovieSchema(many=True)
 @movie_ns.route('/')
 class MoviesView(Resource):
 
-	# @auth_required
+	@auth_required
 	def get(self):
 		status = request.args.get("status")
 		page = request.args.get("page")
@@ -38,7 +38,7 @@ class MoviesView(Resource):
 
 @movie_ns.route('/<int:pk>')
 class MovieView(Resource):
-	# @auth_required
+	@auth_required
 	def get(self, pk: int):
 		try:
 			movie = movie_service.get_one(pk)
@@ -56,6 +56,6 @@ class MovieView(Resource):
 		return "", 204
 
 	# @admin_required
-	def delete(self, bid):
-		movie_service.delete(bid)
+	def delete(self, pk: int):
+		movie_service.delete(pk)
 		return "", 204

@@ -15,7 +15,7 @@ class MovieDAO:
 		"""
 		This method give us a list of movies depend on a requested parameters
 		:param sort: if need sort movie by year set True
-		:param page: if need paginate, set page
+		:param page: if need paginate, set page True
 		:return: movies sorted by parameters
 		"""
 		if page and sort:
@@ -60,15 +60,3 @@ class MovieDAO:
 		self.session.query(Movie).filter(Movie.id == pk).update(movie_data)
 		self.session.commit()
 		return self.get_one(pk)
-
-		# TODO do not forget to delete this vvvvvvvv
-
-		# movie.title = movie_d.get("title")
-		# movie.description = movie_d.get("description")
-		# movie.trailer = movie_d.get("trailer")
-		# movie.year = movie_d.get("year")
-		# movie.rating = movie_d.get("rating")
-		# movie.genre_id = movie_d.get("genre_id")
-		# movie.director_id = movie_d.get("director_id")
-		# self.session.add(movie)
-		# self.session.commit()
