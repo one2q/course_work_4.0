@@ -44,19 +44,19 @@ class MovieDAO:
 	# def get_by_year(self, year: int):
 	#     return self.session.query(Movie).filter(Movie.year == year).all()
 
-	def create(self, movie_data: dict):
-		movie = Movie(**movie_data)
-		self.session.add(movie)
-		self.session.commit()
-		return movie
-
-	def delete(self, pk: int):
-		movie = self.get_one(pk)
-		self.session.delete(movie)
-		self.session.commit()
-
-	def update(self, movie_data: dict):
-		pk = movie_data.get("id")
-		self.session.query(Movie).filter(Movie.id == pk).update(movie_data)
-		self.session.commit()
-		return self.get_one(pk)
+	# def create(self, movie_data: dict):
+	# 	movie = Movie(**movie_data)
+	# 	self.session.add(movie)
+	# 	self.session.commit()
+	# 	return movie
+	#
+	# def delete(self, pk: int):
+	# 	movie = self.get_one(pk)
+	# 	self.session.delete(movie)
+	# 	self.session.commit()
+	#
+	# def update(self, movie_data: dict):
+	# 	pk = movie_data.get("id")
+	# 	self.session.query(Movie).filter(Movie.id == pk).update(movie_data)
+	# 	self.session.commit()
+	# 	return self.get_one(pk)

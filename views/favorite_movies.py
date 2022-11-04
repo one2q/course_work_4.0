@@ -1,14 +1,16 @@
 from flask import request
 from flask_restx import Resource, Namespace
 
+from decorators import auth_required
 from implemented import favorite_movies_service
 
 favorite_ns = Namespace('/favorites/movies/')
 
 
-@favorite_ns.route('/<int:pk>')
+@favorite_ns.route('/')
 class FavoritesView(Resource):
-	def post(self, pk):
+	# @auth_required
+	def post(self):
 		data = request.json
 		filter = {
 			"user_id": data.get("user_id"),
@@ -17,7 +19,8 @@ class FavoritesView(Resource):
 		favorite_movies_service.create(filter)
 		return '', 201
 
-	def delete(self, data):
+	# @auth_required
+	def delete(self):
 		data = request.json
 		filter = {
 			"user_id": data.get("user_id"),

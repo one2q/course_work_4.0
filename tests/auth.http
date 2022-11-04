@@ -3,19 +3,19 @@ POST http://127.0.0.1:5000/auth/register/
 Content-Type: application/json
 
 {
-  "email": "test",
-  "password": "test"
+  "email": "test1",
+  "password": "test1"
 }
 
 
 ###
 
-POST http://127.0.0.1:5000/auth/login
+POST http://127.0.0.1:5000/auth/login/
 Content-Type: application/json
 
 {
-  "email": "test",
-  "password": "test"
+  "email": "test1",
+  "password": "test1"
 }
 ###
 
@@ -23,6 +23,7 @@ PUT http://127.0.0.1:5000/auth/login/
 Content-Type: application/json
 
 {
-"refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6InlhbiIsInJvbGUiOiJ1c2VyIiwiZXhwIjoxNjc3NDkwOTAyfQ.Bj-ZgLB8K9xkKRrucySQuIXjOzp4EOlQWY-tlTqV9JY"
+  "access_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxIiwicGFzc3dvcmQiOiJIUzl6N0xkd2EwQkt3L3gyZ3MrNzF1TXN3RFFaQTBXeE9JK0hLaEttU0RJPSIsImV4cCI6MTY2NzU3NDA5M30.EzrrzCflUqHwcqF4nWy93GH9qcmOPHvrR5n5IJfijxk",
+  "refresh_token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InRlc3QxIiwicGFzc3dvcmQiOiJIUzl6N0xkd2EwQkt3L3gyZ3MrNzF1TXN3RFFaQTBXeE9JK0hLaEttU0RJPSIsImV4cCI6MTY3ODgwNDI5M30.nphDNVvnIE9KLz9CaINhOh-_LM9a8j3jBQb2N8Kyax0"
 }
 
