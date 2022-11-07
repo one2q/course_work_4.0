@@ -13,11 +13,10 @@ class User(db.Model):
 	favourite_genre = db.Column(db.Integer, db.ForeignKey("genre.id"))
 
 
-
 class UserSchema(Schema):
 	id = fields.Int()
 	email = fields.Str()
-	password = fields.Str()
+	# password = fields.Str()
 	name = fields.Str()
 	surname = fields.Str()
 	favourite_genre = fields.Int()

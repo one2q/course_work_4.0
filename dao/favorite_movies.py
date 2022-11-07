@@ -2,6 +2,9 @@ from dao.model.favorite_movie import FavoriteMovies
 
 
 class FavoriteMoviesDAO:
+	"""
+		This class is work with db and provide CRUD
+	"""
 
 	def __init__(self, session):
 		self.session = session

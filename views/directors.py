@@ -9,6 +9,7 @@ director_ns = Namespace('directors')
 
 
 @director_ns.route('/')
+@director_ns.doc(params={'id': 'director_id', 'name': "director_name"})
 class DirectorsView(Resource):
 	@auth_required
 	def get(self):

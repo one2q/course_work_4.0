@@ -2,7 +2,9 @@ import base64
 import hashlib
 import hmac
 
-from constants import PWD_HASH_SALT, PWD_HASH_ITERATIONS
+import jwt
+
+from constants import PWD_HASH_SALT, PWD_HASH_ITERATIONS, JWT_SECRET, JWT_ALGORITHM
 from dao.user import UserDAO
 
 
@@ -26,7 +28,8 @@ class UserService:
 	def update(self, user_data: dict):
 		return self.dao.update(user_data)
 
-	def get_hash(self, password: str):
+	@staticmethod
+	def get_hash(password: str):
 		result = hashlib.pbkdf2_hmac(
 			'sha256',
 			password.encode('utf-8'),  # Convert the password to bytes
@@ -35,16 +38,18 @@ class UserService:
 			)
 		return base64.b64encode(result)
 
-	# Compare decode and encode passwords
-	def compare_passwords(self, password_hash: bytes | str, password: str) -> bool:
-		# Check is password a string and transform it to bytes
-		if isinstance(password_hash, str):
-			password_hash = password_hash.encode('utf-8')
+	@staticmethod
+	def get_email_from_token(user_token) -> str:
+		token = user_token.split("Bearer ")[-1]
+		decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
+		email = decoded_data.get('email')
 
-		decode_password = base64.b64decode(password_hash)
-		new_password = base64.b64decode(self.get_hash(password))
+		return email
 
-		return hmac.compare_digest(decode_password, new_password)
-
+	def compare_passwords(self, email, password):
+		user = self.get_by_email(email)
+		old_password = user.password
+		new_password = self.get_hash(password)
+		return old_password == new_password
 
 

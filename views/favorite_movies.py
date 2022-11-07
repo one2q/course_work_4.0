@@ -9,7 +9,7 @@ favorite_ns = Namespace('/favorites/movies/')
 
 @favorite_ns.route('/')
 class FavoritesView(Resource):
-	# @auth_required
+	@auth_required
 	def post(self):
 		data = request.json
 		filter = {
@@ -19,7 +19,7 @@ class FavoritesView(Resource):
 		favorite_movies_service.create(filter)
 		return '', 201
 
-	# @auth_required
+	@auth_required
 	def delete(self):
 		data = request.json
 		filter = {
