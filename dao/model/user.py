@@ -11,7 +11,7 @@ class User(db.Model):
 	name = db.Column(db.String)
 	surname = db.Column(db.String)
 	favourite_genre = db.Column(db.Integer, db.ForeignKey("genre.id"))
-
+# TODO change favourite to correct form str 13
 
 class UserSchema(Schema):
 	id = fields.Int()

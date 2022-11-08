@@ -4,10 +4,10 @@ from flask_restx import Resource, Namespace
 from decorators import auth_required
 from implemented import favorite_movies_service
 
-favorite_ns = Namespace('/favorites/movies/')
+favorite_ns = Namespace('favorites')
 
 
-@favorite_ns.route('/')
+@favorite_ns.route('/movies/')
 class FavoritesView(Resource):
 	@auth_required
 	def post(self):
