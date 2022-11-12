@@ -46,10 +46,10 @@ class UserService:
 
 		return email
 
-	def compare_passwords(self, email, try_password):
+	def compare_passwords(self, email, old_password):
 		user = self.get_by_email(email)
 		user_password = user.password
-		hash_try_password = self.get_hash(try_password)
-		return user_password == hash_try_password
+		hash_old_password = self.get_hash(old_password)
+		return user_password == hash_old_password
 
 

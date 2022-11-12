@@ -2,6 +2,8 @@ from unittest.mock import MagicMock
 
 import pytest as pytest
 
+from config import Config
+from app import create_app
 from dao.director import DirectorDAO
 from dao.genre import GenreDAO
 from dao.model.director import Director
@@ -36,3 +38,23 @@ def genre_dao():
 
 	return genre_dao
 
+
+#########################################
+
+@pytest.fixture()
+def app():
+	app = create_app(Config())
+	app.config.update({
+		"TESTING": True,
+	})
+
+	# other setup can go here
+
+	yield app
+
+	# clean up / reset resources here
+
+
+@pytest.fixture()
+def client(app):
+	return app.test_client()
