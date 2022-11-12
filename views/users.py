@@ -43,6 +43,10 @@ class UsersView(Resource):
 
 		# Update users data
 		user = user_service.update(data)
+
+		updated_data = {"password": user_service.get_hash(new_password), "email": email}
+
+		user = user_service.update(updated_data)
 		if not user:
 			return abort(404)
 		return user_schema.dump(user)
@@ -53,15 +57,22 @@ class UsersView(Resource):
 	@auth_required
 	def put(self):
 		data = request.json
+		old_password = data.get("old_password")
+		new_password = data.get("new_password")
 
 		# Get email from token
-		user_data = request.headers["Authorization"]
-		token = user_data.split("Bearer ")[-1]
-		decoded_data = jwt.decode(token, JWT_SECRET, JWT_ALGORITHM)
-		email = decoded_data.get('email')
+		user_token = request.headers["Authorization"]
+		email = user_service.get_email_from_token(user_token)
+
 		data["email"] = email
 
-		user = user_service.update(data)
+		# Check if user enter correct password
+		if not user_service.compare_passwords(email, old_password):
+			return 'Enter correct password', 400
+
+		updated_data = {"password": user_service.get_hash(new_password), "email": email}
+
+		user = user_service.update(updated_data)
 		if not user:
 			return abort(404)
 		return user_schema.dump(user)
