@@ -20,7 +20,7 @@ class UserService:
 
 	def create(self, data: dict):
 		data["password"] = self.get_hash(data["password"])
-		return self.dao.create(data)
+		return self.dao.create(data) # создать свою ошибку
 
 	def get_by_email(self, email: str):
 		return self.dao.get_by_email(email)

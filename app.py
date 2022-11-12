@@ -21,7 +21,7 @@ def create_app(config_object: Config) -> Flask:
 
 def register_extensions(app: Flask) -> None:
 	db.init_app(app)
-	api = Api(app)
+	api = Api(app, doc='/', title='API')
 	api.add_namespace(director_ns)
 	api.add_namespace(genre_ns)
 	api.add_namespace(movie_ns)

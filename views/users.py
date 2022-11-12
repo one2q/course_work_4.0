@@ -22,14 +22,15 @@ class UsersView(Resource):
 			return user_schema.dump(user_service.get_by_email(email))
 		abort(404)
 
-	# Update user's information
+	# Update user's information such as name, surname, favorite_genre
 	@auth_required
 	def patch(self):
 		data = request.json
-		password = data.get("password")
-		# Check if where any password
-		if password:
-			return "No no no", 403
+		password = data.get("password", None)
+		email = data.get("email", None)
+		# Check if where any password or email
+		if password or email:
+			return "To change email or password use another service", 403
 
 		# Get email from token
 		user_token = request.headers["Authorization"]
@@ -64,7 +65,7 @@ class UsersView(Resource):
 		# Check if user enter correct password
 		if not user_service.compare_passwords(email, old_password):
 			return 'Enter correct password', 400
-		data["password"] = new_password
+		data["password"] = user_service.get_hash(new_password)
 		user = user_service.update(data)
 		if not user:
 			return abort(404)
