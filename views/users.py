@@ -22,13 +22,13 @@ class UsersView(Resource):
 			return user_schema.dump(user_service.get_by_email(email))
 		abort(404)
 
-	# Update user's information such as name, surname, favorite_genre
+
 	@auth_required
 	def patch(self):
 		data = request.json
 		password = data.get("password", None)
 		email = data.get("email", None)
-		# Check if where any password or email
+
 		if password or email:
 			return "To change email or password use another service", 403
 
