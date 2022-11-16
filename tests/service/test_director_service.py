@@ -12,7 +12,7 @@ class TestDirectorService:
 		director = self.director_service.get_one(1)
 
 		assert director is not None
-		assert director.id is not None
+		assert director.id == 1
 
 	def test_get_all(self):
 		directors = self.director_service.get_all()

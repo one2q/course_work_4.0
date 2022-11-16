@@ -12,7 +12,7 @@ class AuthService:
 	def __init__(self, service: UserService):
 		self.user_service = service
 
-	def generate_tokens(self, email: str, password: str | None, is_refresh: bool = False) -> dict:
+	def generate_tokens(self, email: str) -> dict:
 		"""
 		This function is generate access and refresh tokens
 		"""
@@ -20,15 +20,9 @@ class AuthService:
 		# Check if where is a user
 		if user is None:
 			raise abort(404)
-		# Check if users password is in the db
-		if not is_refresh:
-			if not self.user_service.compare_passwords(user.password, password):
-				raise abort(400)
 
-		# Transform password to string, because jwt can`t encode bytes
 		data = {
-			"email": user.email,
-			"password": user.password.decode('utf-8')
+			"email": user.email
 		}
 		# 30 min token
 		min30 = datetime.datetime.utcnow() + datetime.timedelta(minutes=30)
@@ -51,4 +45,4 @@ class AuthService:
 	def refresh_token(self, refresh_token):
 		data = jwt.decode(refresh_token, JWT_SECRET, JWT_ALGORITHM)
 		email = data.get("email")
-		return self.generate_tokens(email, None, is_refresh=True)
+		return self.generate_tokens(email)

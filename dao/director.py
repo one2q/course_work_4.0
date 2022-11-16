@@ -2,6 +2,9 @@ from dao.model.director import Director
 
 
 class DirectorDAO:
+	"""
+		This class is work with db and provide CRUD
+	"""
 	def __init__(self, session):
 		self.session = session
 
