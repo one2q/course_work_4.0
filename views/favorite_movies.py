@@ -4,12 +4,12 @@ from flask_restx import Resource, Namespace
 from decorators import auth_required
 from implemented import favorite_movies_service
 
-favorite_ns = Namespace('/favorites/movies/')
+favorite_ns = Namespace('favorites')
 
 
-@favorite_ns.route('/')
+@favorite_ns.route('/movies/')
 class FavoritesView(Resource):
-	# @auth_required
+	@auth_required
 	def post(self):
 		data = request.json
 		filter = {
@@ -19,7 +19,7 @@ class FavoritesView(Resource):
 		favorite_movies_service.create(filter)
 		return '', 201
 
-	# @auth_required
+	@auth_required
 	def delete(self):
 		data = request.json
 		filter = {

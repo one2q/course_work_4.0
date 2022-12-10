@@ -28,22 +28,6 @@ class MovieDAO:
 			movies = self.session.query(Movie).all()
 		return movies
 
-	# def get_all_sorted(self):
-	# 	return self.session.query(Movie).order_by(Movie.year.desc()).all()
-	#
-	# def get_all_paginate(self, page):
-	# 	page = int(page)
-	# 	return self.session.query(Movie).paginate(page=page, per_page=12).items
-
-	# def get_by_director_id(self, pk: int):
-	#     return self.session.query(Movie).filter(Movie.director_id == pk).all()
-	#
-	# def get_by_genre_id(self, pk: int):
-	#     return self.session.query(Movie).filter(Movie.genre_id == pk).all()
-	#
-	# def get_by_year(self, year: int):
-	#     return self.session.query(Movie).filter(Movie.year == year).all()
-
 	# def create(self, movie_data: dict):
 	# 	movie = Movie(**movie_data)
 	# 	self.session.add(movie)

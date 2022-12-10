@@ -2,12 +2,14 @@ import jwt as jwt
 from flask import request, abort
 
 from constants import JWT_ALGORITHM, JWT_SECRET
+from functools import wraps
 
 
 def auth_required(func):
 	"""
 	This decorator check is it authorized user or not
 	"""
+	@wraps(func)
 	def inner(*args, **kwargs):
 		if "Authorization" not in request.headers:
 			abort(401)

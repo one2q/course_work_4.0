@@ -1,4 +1,4 @@
-from flask_restx import Resource, Namespace
+from flask_restx import Resource, Namespace, fields
 from flask import request
 
 from dao.model.director import DirectorSchema
@@ -8,38 +8,62 @@ from implemented import director_service
 director_ns = Namespace('directors')
 
 
+# director_model = director_ns.model(
+# 	'Director',
+# 	{
+# 		'id': fields.Integer(),
+# 		'name': fields.String()
+# 	}
+# )
+
+
 @director_ns.route('/')
 class DirectorsView(Resource):
-	@auth_required
+	# @director_ns.marshal_list_with(director_model)
+	# @auth_required
 	def get(self):
-		director = director_service.get_all()
-		result = DirectorSchema(many=True).dump(director)
-		return result, 200
+		"""
+		Get all directors
+		"""
+		try:
+			director = director_service.get_all()
+			result = DirectorSchema(many=True).dump(director)
+			return result, 200
+		except Exception as e:
+			print(e)
 
-	# @admin_required
-	def post(self):
-		data = request.json
-		director_service.create(data)
-		return 'Ok', 201
+	# def post(self):
+	# 	"""
+	# 	Create a new director
+	# 	"""
+	# 	data = request.json
+	# 	director_service.create(data)
+	# 	return 'Ok', 201
 
 
 @director_ns.route('/<int:pk>/')
 class DirectorView(Resource):
-	@auth_required
+	# @auth_required
 	def get(self, pk: int):
-		director = director_service.get_one(pk)
-		result = DirectorSchema().dump(director)
-		return result, 200
+		"""
+		Get one director by id
+		"""
+		try:
+			director = director_service.get_one(pk)
+			result = DirectorSchema().dump(director)
+			return result, 200
 
-	# @admin_required
-	def put(self, pk: int):
-		data = request.json
-		if "id" not in data:
-			data["id"] = pk
-		director_service.update(data)
-		return "", 204
+		except Exception as e:
+			print(e)
 
-	# @admin_required
-	def delete(self, pk: int):
-		director_service.delete(pk)
-		return '', 204
+	# def put(self, pk: int):
+	# 	data = request.json
+	# 	if "id" not in data:
+	# 		data["id"] = pk
+	# 	director_service.update(data)
+	# 	return "", 204
+	#
+	#
+	# def delete(self, pk: int):
+	# 	director_service.delete(pk)
+	# 	return '', 204

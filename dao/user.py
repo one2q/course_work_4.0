@@ -9,7 +9,7 @@ class UserDAO:
 		self.session = session
 
 	# Create new object in table user
-	def create(self, data):
+	def create(self, data: dict):
 		user = User(**data)
 		self.session.add(user)
 		self.session.commit()
@@ -28,7 +28,7 @@ class UserDAO:
 		return self.session.query(User).get(pk)
 
 	# Delete user by id
-	def delete(self, pk):
+	def delete(self, pk: int):
 		user = self.get_one(pk)
 		self.session.delete(user)
 		self.session.commit()

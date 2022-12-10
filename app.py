@@ -1,6 +1,5 @@
 from flask import Flask
 from flask_restx import Api
-from flask_migrate import Migrate
 from flask_cors import CORS
 
 from config import Config
@@ -22,7 +21,7 @@ def create_app(config_object: Config) -> Flask:
 
 def register_extensions(app: Flask) -> None:
 	db.init_app(app)
-	api = Api(app)
+	api = Api(app, doc='/', title='API')
 	api.add_namespace(director_ns)
 	api.add_namespace(genre_ns)
 	api.add_namespace(movie_ns)
@@ -33,7 +32,6 @@ def register_extensions(app: Flask) -> None:
 
 app = create_app(Config())
 CORS(app)
-migrate = Migrate(app, db, render_as_batch=True)
 
 # with app.app_context():
 # 	db.create_all()

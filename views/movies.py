@@ -15,6 +15,9 @@ class MoviesView(Resource):
 
 	@auth_required
 	def get(self):
+		"""
+		Get all movies.(status, pagination)
+		"""
 		status = request.args.get("status")
 		page = request.args.get("page")
 
@@ -40,6 +43,9 @@ class MoviesView(Resource):
 class MovieView(Resource):
 	@auth_required
 	def get(self, pk: int):
+		"""
+		Get movie by pk
+		"""
 		try:
 			movie = movie_service.get_one(pk)
 			result = movie_schema.dump(movie)
@@ -49,6 +55,9 @@ class MovieView(Resource):
 
 	# @admin_required
 	def put(self, pk: int):
+		"""
+		Update movie information
+		"""
 		req_json = request.json
 		if "id" not in req_json:
 			req_json["id"] = pk
@@ -57,5 +66,8 @@ class MovieView(Resource):
 
 	# @admin_required
 	def delete(self, pk: int):
+		"""
+		Delete movie by pk
+		"""
 		movie_service.delete(pk)
 		return "", 204

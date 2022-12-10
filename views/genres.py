@@ -11,36 +11,28 @@ genre_ns = Namespace('genres')
 class GenresView(Resource):
 	@auth_required
 	def get(self):
-		genre = genre_service.get_all()
-		result = GenreSchema(many=True).dump(genre)
-		return result, 200
-
-	# @admin_required
-	def post(self):
-		data = request.json
-		genre_service.create(data)
-		return 'Ok', 201
+		"""
+		Get all genres
+		"""
+		try:
+			genre = genre_service.get_all()
+			result = GenreSchema(many=True).dump(genre)
+			return result, 200
+		except Exception as e:
+			print(e)
 
 
 @genre_ns.route('/<int:pk>/')
 class GenreView(Resource):
 	@auth_required
-	def get(self, pk):
-		genre = genre_service.get_one(pk)
-		if not genre:
-			abort(404)
-		result = GenreSchema().dump(genre)
-		return result, 200
+	def get(self, pk: int):
+		"""
+		Get one genre by id
+		"""
+		try:
+			genre = genre_service.get_one(pk)
+			result = GenreSchema().dump(genre)
+			return result, 200
+		except Exception as e:
+			print(e)
 
-	# @admin_required
-	def put(self, pk: int):
-		data = request.json
-		if "id" not in data:
-			data["id"] = pk
-		genre_service.update(data)
-		return "", 204
-
-	# @admin_required
-	def delete(self, pk: int):
-		genre_service.delete(pk)
-		return '', 204

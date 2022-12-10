@@ -5,8 +5,8 @@ class MovieService:
 	def __init__(self, dao: MovieDAO):
 		self.dao = dao
 
-	def get_one(self, bid):
-		return self.dao.get_one(bid)
+	def get_one(self, pk: int):
+		return self.dao.get_one(pk)
 
 	def get_all(self, filters):
 		sort, page = False, False
