@@ -3,11 +3,7 @@ from marshmallow import Schema, fields
 from dao.model.director import DirectorSchema
 from dao.model.genre import GenreSchema
 from setup_db import db
-from sqlalchemy import Column
-from sqlalchemy.ext.declarative import declarative_base
 
-print(db.Model is declarative_base)
-print(db.Column is Column)
 
 class Movie(db.Model):
     __tablename__ = 'movie'

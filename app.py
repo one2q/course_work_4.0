@@ -1,4 +1,5 @@
 from flask import Flask
+from flask_migrate import Migrate
 from flask_restx import Api
 from flask_cors import CORS
 
@@ -32,6 +33,7 @@ def register_extensions(app: Flask) -> None:
 
 app = create_app(Config())
 CORS(app)
+migrate = Migrate(app, db, render_as_batch=True)
 
 # with app.app_context():
 # 	db.create_all()
